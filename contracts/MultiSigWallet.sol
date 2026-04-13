@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.31;
+pragma solidity ^0.8.28;
 
 contract MultiSigWallet {
     
@@ -79,7 +79,7 @@ contract MultiSigWallet {
             value: _value,
             data: _data,
             numConfirmations: 0
-        }))
+        }));
 
         emit TransactionSubmitted(msg.sender, txIndex, _to, _value, _data);
     }
@@ -113,6 +113,10 @@ contract MultiSigWallet {
         (bool success, ) = transaction.to.call{value: transaction.value}(transaction.data);
         require(success, "Transaction failed");
         emit TransactionExecuted(msg.sender, _txIndex);
+    }
+
+    function getOwners() external view returns (address[] memory) {
+        return owners;
     }
 
     receive() external payable {
