@@ -119,6 +119,18 @@ contract MultiSigWallet {
         return owners;
     }
 
+    function getThreshold() external view returns (uint256) {
+        return numConfirmationsRequired;
+    }
+
+    function getBalance() external view returns (uint256) {
+        return address(this).balance;
+    }
+
+    function getTransactionCount() external view returns (uint256) {
+        return transactions.length;
+    }
+
     receive() external payable {
         if (msg.value > 0 ) {
             emit Deposit(msg.sender, msg.value);
