@@ -23,3 +23,5 @@
 /frontend/dist
 /frontend/.next
 /frontend/.env.local
+
+.env
