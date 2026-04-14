@@ -29,3 +29,9 @@ main()
         console.error(error);
         process.exit(1);
     });
+
+// Deploy locally with:
+// npx hardhat run scripts/multiSigWallet.ts --network localhost
+
+// Deploy to Sepolia with:
+// npx hardhat run scripts/multiSigWallet.ts --network sepolia
