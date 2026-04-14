@@ -4,10 +4,10 @@ pragma solidity ^0.8.28;
 contract MultiSigWallet {
     
     struct Transactions {
-        bool executed;
         address to;
         uint256 value;
         bytes data;
+        bool executed;
         uint256 numConfirmations;
     }
 
@@ -127,8 +127,23 @@ contract MultiSigWallet {
         return address(this).balance;
     }
 
+    function getTransaction(uint256 _txIndex) external view returns (Transactions memory) {
+        require(_txIndex < transactions.length, "Transaction does not exist");
+        return transactions[_txIndex];
+    }
+
     function getTransactionCount() external view returns (uint256) {
         return transactions.length;
+    }
+
+    function isTransactionConfirmed(uint256 _txIndex, address _owner) external view returns (bool) {
+        require(_txIndex < transactions.length, "Transaction does not exist");
+        return isConfirmed[_txIndex][_owner];
+    }
+
+    function canExecute(uint256 _txIndex) external view returns (bool) {
+        require(_txIndex < transactions.length, "Transaction does not exist");
+        return transactions[_txIndex].numConfirmations >= numConfirmationsRequired && !transactions[_txIndex].executed;
     }
 
     receive() external payable {

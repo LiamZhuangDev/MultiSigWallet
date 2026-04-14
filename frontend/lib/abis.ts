@@ -4,7 +4,6 @@ export const MultiSigWalletABI = [
   'function owners(uint256) view returns (address)',
   'function isOwner(address) view returns (bool)',
   'function numConfirmationsRequired() view returns (uint256)',
-  'function transactions(uint256) view returns (address to, uint256 value, bytes data, bool executed, uint256 numConfirmations)',
   'function isConfirmed(uint256, address) view returns (bool)',
   
   // 所有者管理
@@ -17,7 +16,7 @@ export const MultiSigWalletABI = [
   
   // 交易管理
   'function submitTransaction(address to, uint256 value, bytes memory data)',
-  'function getTransaction(uint256 txIndex) view returns (address to, uint256 value, bytes memory data, bool executed, uint256 numConfirmations)',
+  'function getTransaction(uint256 txIndex) view returns (tuple(address to, uint256 value, bytes data, bool executed, uint256 numConfirmations))',
   'function getTransactionCount() view returns (uint256)',
   
   // 确认机制
@@ -39,8 +38,8 @@ export const MultiSigWalletABI = [
   'function incrementOwnerVoteCount(address owner)',
   
   // 接收 ETH
-  'receive() external payable',
-  'fallback() external payable',
+  'receive() payable',
+  'fallback() payable',
   
   // 事件
   'event Deposit(address indexed sender, uint256 amount)',
